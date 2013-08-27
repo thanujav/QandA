@@ -3,6 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 2012 for Web
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QandA.Service.Test", "QandA.Service.Test\QandA.Service.Test.csproj", "{91002699-100B-4529-9C23-C0FFA120DD56}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QandA.Service", "QandA.Service\QandA.Service.csproj", "{887BC762-7C8E-4818-89FB-53776F96A78C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QandA.Data", "QandA.Data\QandA.Data.csproj", "{5D2CF29F-7D2B-4E47-81CE-2DF225756981}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QandA.Core", "QandA.Core\QandA.Core.csproj", "{65068EB8-1222-40EF-93C6-D530A58BA57A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +19,18 @@ Global
 		{91002699-100B-4529-9C23-C0FFA120DD56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91002699-100B-4529-9C23-C0FFA120DD56}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91002699-100B-4529-9C23-C0FFA120DD56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{887BC762-7C8E-4818-89FB-53776F96A78C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{887BC762-7C8E-4818-89FB-53776F96A78C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{887BC762-7C8E-4818-89FB-53776F96A78C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{887BC762-7C8E-4818-89FB-53776F96A78C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D2CF29F-7D2B-4E47-81CE-2DF225756981}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D2CF29F-7D2B-4E47-81CE-2DF225756981}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D2CF29F-7D2B-4E47-81CE-2DF225756981}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D2CF29F-7D2B-4E47-81CE-2DF225756981}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65068EB8-1222-40EF-93C6-D530A58BA57A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65068EB8-1222-40EF-93C6-D530A58BA57A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65068EB8-1222-40EF-93C6-D530A58BA57A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65068EB8-1222-40EF-93C6-D530A58BA57A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

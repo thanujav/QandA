@@ -59,6 +59,20 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QandA.Core\QandA.Core.csproj">
+      <Project>{65068eb8-1222-40ef-93c6-d530a58ba57a}</Project>
+      <Name>QandA.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QandA.Data\QandA.Data.csproj">
+      <Project>{5d2cf29f-7d2b-4e47-81ce-2df225756981}</Project>
+      <Name>QandA.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QandA.Service\QandA.Service.csproj">
+      <Project>{887bc762-7c8e-4818-89fb-53776f96a78c}</Project>
+      <Name>QandA.Service</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
