@@ -9,6 +9,6 @@ namespace QandA.Core.Interfaces
 {
     public interface IUnitOfWork
     {
-        IGenericRepository<Question> QuestionsRepository { get; set; }
+        IGenericRepository<Question> QuestionsRepository { get; }
     }
 }
