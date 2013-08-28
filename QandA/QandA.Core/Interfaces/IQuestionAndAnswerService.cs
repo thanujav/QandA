@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QandA.Core.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace QandA.Core.Interfaces
 {
-    public interface IGenericRepository<T>
+    public interface IQuestionAndAnswerService
     {
-        T SingleOrDefault(Func<T,bool> predicate);
+        Question GetQuestion(int questionId);
     }
 }

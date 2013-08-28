@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Domain\Question.cs" />
     <Compile Include="Interfaces\IGenericRepository.cs" />
+    <Compile Include="Interfaces\IQuestionAndAnswerService.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

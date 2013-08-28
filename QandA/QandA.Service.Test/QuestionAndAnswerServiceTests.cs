@@ -54,7 +54,7 @@ namespace QandA.Service.Test
         private static Mock<IGenericRepository<Question>> setupQuestionRepository(int id, string desc)
         {
             var questionsRepository = new Mock<IGenericRepository<Question>>();
-            questionsRepository.Setup(qr => qr.SingleOrDefault(It.IsAny<int>()))
+            questionsRepository.Setup(qr => qr.SingleOrDefault(It.IsAny<Func<Question,bool>>()))
                                .Returns(new Question { Id = id, Desc = desc });
             return questionsRepository;
         }

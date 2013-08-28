@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace QandA.Service
 {
-    public class QuestionAndAnswerService
+    public class QuestionAndAnswerService : IQuestionAndAnswerService
     {
         private IUnitOfWork unitOfWork;
 
@@ -16,9 +16,9 @@ namespace QandA.Service
         {
             this.unitOfWork = unitOfWork;
         }
-        public Question GetQuestion(int questionNumber)
+        public Question GetQuestion(int questionId)
         {
-            return unitOfWork.QuestionsRepository.SingleOrDefault(questionNumber);
+            return unitOfWork.QuestionsRepository.SingleOrDefault(q => q.Id == questionId);
         }
     }
 }
