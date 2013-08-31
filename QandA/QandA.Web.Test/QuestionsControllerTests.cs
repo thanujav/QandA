@@ -12,7 +12,7 @@ namespace QandA.Web.Test
     public class QuestionsControllerTests
     {
         [TestMethod]
-        public void GetFirstQuestion()
+        public void DetailsWithIdReturnsQuestion()
         {
             //Arrange
             var questionsAndAnswerService = new Mock<IQuestionAndAnswerService>();
@@ -21,7 +21,7 @@ namespace QandA.Web.Test
             var questionsController = new QuestionsController(questionsAndAnswerService.Object);
 
             //Act
-            var result = questionsController.Index(1) as ViewResult;
+            var result = questionsController.Details(1) as ViewResult;
 
             
             var model = result.Model as Question;

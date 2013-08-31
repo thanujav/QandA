@@ -15,7 +15,7 @@ namespace QandA.Web.Controllers
             _questionAndAnswerService = questionAndAnswerService;
         }
 
-        public ActionResult Index(int id)
+        public ActionResult Details(int id)
         {
             var question = _questionAndAnswerService.GetQuestion(id);
             return View(question);
