@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using QandA.Core.Interfaces;
 using QandA.Core.Domain;
+using System.Collections.Generic;
 
 namespace QandA.Service.Test
 {
@@ -56,7 +57,41 @@ namespace QandA.Service.Test
             var questionsRepository = new Mock<IGenericRepository<Question>>();
             questionsRepository.Setup(qr => qr.SingleOrDefault(It.IsAny<Func<Question,bool>>()))
                                .Returns(new Question { Id = id, Desc = desc });
+            questionsRepository.Setup(qr => qr.Add(It.IsAny<Question>()))
+                               .Returns(new Question { Id = id, Desc = desc });
+            questionsRepository.Setup(qas => qas.GetAll())
+                               .Returns(new List<Question> { new Question { Id = id, Desc = desc } });
             return questionsRepository;
+        }
+
+        [TestMethod]
+        public void AddQuestionReturnQuestionWithId()
+        {
+            //Arrange
+            var questionsRepository = setupQuestionRepository(1, "What is ASP.NET?");
+            var unitOfWork = setupUnitOfWork(questionsRepository);
+            var questionAndAnswerService = new QuestionAndAnswerService(unitOfWork.Object);
+            
+            //Act
+            Question question = questionAndAnswerService.AddQuestion(new Question { Desc = "What is .NET" });
+            
+            //Assert
+            Assert.IsTrue(question.Id > 0);
+        }
+
+        [TestMethod]
+        public void GetAllReturnsAllQuestions()
+        {
+            //Arrange
+            var questionsRepository = setupQuestionRepository(1, "What is ASP.NET?");
+            var unitOfWork = setupUnitOfWork(questionsRepository);
+            var questionAndAnswerService = new QuestionAndAnswerService(unitOfWork.Object);
+            
+            //Act
+            List<Question> questions = questionAndAnswerService.GetAll();
+            
+            //Assert
+            Assert.IsTrue(questions.Count > 0);
         }
     }   
 }

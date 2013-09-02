@@ -10,15 +10,27 @@ namespace QandA.Service
 {
     public class QuestionAndAnswerService : IQuestionAndAnswerService
     {
-        private IUnitOfWork unitOfWork;
+        private IUnitOfWork _unitOfWork;
 
         public QuestionAndAnswerService(IUnitOfWork unitOfWork)
         {
-            this.unitOfWork = unitOfWork;
+            _unitOfWork = unitOfWork;
         }
         public Question GetQuestion(int questionId)
         {
-            return unitOfWork.QuestionsRepository.SingleOrDefault(q => q.Id == questionId);
+            return _unitOfWork.QuestionsRepository.SingleOrDefault(q => q.Id == questionId);
+        }
+
+        public Question AddQuestion(Question question)
+        {
+            Question addedQuestion = _unitOfWork.QuestionsRepository.Add(question);
+            _unitOfWork.Save();
+            return question;
+        }
+
+        public List<Question> GetAll()
+        {
+            return _unitOfWork.QuestionsRepository.GetAll();
         }
     }
 }

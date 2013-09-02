@@ -1,4 +1,5 @@
-﻿using QandA.Core.Interfaces;
+﻿using QandA.Core.Domain;
+using QandA.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,5 +22,23 @@ namespace QandA.Web.Controllers
             return View(question);
         }
 
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(Question question)
+        {
+            Question addedQuestion = _questionAndAnswerService.AddQuestion(question);
+
+            return RedirectToAction("details", new { id = addedQuestion.Id });
+        }
+
+        public ActionResult Index()
+        {
+            List<Question> questions = _questionAndAnswerService.GetAll();
+            return View(questions);
+        }
     }
 }

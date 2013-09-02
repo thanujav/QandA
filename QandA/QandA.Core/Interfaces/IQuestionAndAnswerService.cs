@@ -10,5 +10,9 @@ namespace QandA.Core.Interfaces
     public interface IQuestionAndAnswerService
     {
         Question GetQuestion(int questionId);
+
+        Question AddQuestion(Question question);
+
+        List<Question> GetAll();
     }
 }

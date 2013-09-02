@@ -10,5 +10,6 @@ namespace QandA.Core.Interfaces
     public interface IUnitOfWork
     {
         IGenericRepository<Question> QuestionsRepository { get; }
+        void Save();
     }
 }
