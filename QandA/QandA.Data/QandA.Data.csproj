@@ -53,6 +53,10 @@
     <Compile Include="Migrations\201308312005554_first.Designer.cs">
       <DependentUpon>201308312005554_first.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201309040324345_addedanswers.cs" />
+    <Compile Include="Migrations\201309040324345_addedanswers.Designer.cs">
+      <DependentUpon>201309040324345_addedanswers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="SqlContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -71,6 +75,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201308312005554_first.resx">
       <DependentUpon>201308312005554_first.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201309040324345_addedanswers.resx">
+      <DependentUpon>201309040324345_addedanswers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

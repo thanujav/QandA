@@ -13,12 +13,12 @@ namespace QandA.Web.Test
     public class QuestionsControllerTests
     {
         [TestMethod]
-        public void DetailsWithIdReturnsQuestion()
+        public void DetailsWithIdReturnsQuestionAndAnswers()
         {
             //Arrange
             var questionsAndAnswerService = new Mock<IQuestionAndAnswerService>();
             questionsAndAnswerService.Setup(qaas => qaas.GetQuestion(It.IsAny<int>()))
-                                     .Returns(new Question { Id = 1, Desc = "What is Asp.net?" });
+                                     .Returns(new Question { Id = 1, Desc = "What is Asp.net?", Answers = new List<Answer> { new Answer { Id = 1, Desc = "It is a framework." } } });
             var questionsController = new QuestionsController(questionsAndAnswerService.Object);
 
             //Act
@@ -28,6 +28,9 @@ namespace QandA.Web.Test
             var model = result.Model as Question;
             Assert.AreEqual(1, model.Id);
             Assert.AreEqual("What is Asp.net?", model.Desc);
+            Assert.IsTrue(model.Answers.Count > 0);
+            Assert.AreEqual(1, model.Answers[0].Id);
+            Assert.AreEqual("It is a framework.", model.Answers[0].Desc);
         }
 
         [TestMethod]

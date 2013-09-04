@@ -11,7 +11,7 @@ namespace QandA.Service.Test
     public class QuestionAndAnswerServiceTests
     {
         [TestMethod]
-        public void GetFirstQuestion()
+        public void GetQuestionWithIdReturnNonNullQandAs()
         {
             //Arrange
             var questionsRepository = setupQuestionRepository(1, "What is ASP.NET?");
@@ -25,10 +25,13 @@ namespace QandA.Service.Test
             Assert.IsNotNull(question);
             Assert.AreEqual(1, question.Id);
             Assert.AreEqual("What is ASP.NET?", question.Desc);
+            Assert.IsTrue(question.Answers.Count > 0);
+            Assert.AreEqual(1, question.Answers[0].Id);
+            Assert.AreEqual("It is a framework.", question.Answers[0].Desc);
         }
 
         [TestMethod]
-        public void GetSecondQuestion()
+        public void GetQuestionWithIdReturnNonNull2()
         {
             //Arrange
             var questionsRepository = setupQuestionRepository(2, "What is MVC?");
@@ -55,8 +58,8 @@ namespace QandA.Service.Test
         private static Mock<IGenericRepository<Question>> setupQuestionRepository(int id, string desc)
         {
             var questionsRepository = new Mock<IGenericRepository<Question>>();
-            questionsRepository.Setup(qr => qr.SingleOrDefault(It.IsAny<Func<Question,bool>>()))
-                               .Returns(new Question { Id = id, Desc = desc });
+            questionsRepository.Setup(qr => qr.SingleOrDefault(It.IsAny<Func<Question, bool>>()))
+                               .Returns(new Question { Id = id, Desc = desc, Answers = new List<Answer> { new Answer { Id = 1, Desc = "It is a framework." } } });
             questionsRepository.Setup(qr => qr.Add(It.IsAny<Question>()))
                                .Returns(new Question { Id = id, Desc = desc });
             questionsRepository.Setup(qas => qas.GetAll())

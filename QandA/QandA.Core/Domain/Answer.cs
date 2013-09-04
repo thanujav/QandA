@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace QandA.Core.Domain
 {
-    public class Question
+    public class Answer
     {
         public int Id { get; set; }
         public string Desc { get; set; }
-        public List<Answer> Answers { get; set; }
     }
 }

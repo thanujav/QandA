@@ -15,6 +15,16 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.Desc)
     </div>
+
+    @if(Model.Answers != null) 
+    {
+        foreach (var answer in Model.Answers)
+        {
+            <div class="display-field">
+                @Html.DisplayFor(ans => answer.Desc)
+            </div>
+        }
+    }
 </fieldset>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
