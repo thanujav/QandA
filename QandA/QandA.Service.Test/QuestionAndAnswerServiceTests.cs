@@ -61,7 +61,7 @@ namespace QandA.Service.Test
             questionsRepository.Setup(qr => qr.SingleOrDefault(It.IsAny<Func<Question, bool>>()))
                                .Returns(new Question { Id = id, Desc = desc, Answers = new List<Answer> { new Answer { Id = 1, Desc = "It is a framework." } } });
             questionsRepository.Setup(qr => qr.Add(It.IsAny<Question>()))
-                               .Returns(new Question { Id = id, Desc = desc });
+                               .Returns(new Question { Id = id, Desc = desc, Answers = new List<Answer> { new Answer { Id = 2, Desc = "It is a framework." } } });
             questionsRepository.Setup(qas => qas.GetAll())
                                .Returns(new List<Question> { new Question { Id = id, Desc = desc } });
             return questionsRepository;
@@ -95,6 +95,21 @@ namespace QandA.Service.Test
             
             //Assert
             Assert.IsTrue(questions.Count > 0);
+        }
+
+        [TestMethod]
+        public void AddAnswerWithQuestionIdReturnssAddedAnswer()
+        {
+            //Arrange
+            var questionsRepository = setupQuestionRepository(1, "What is ASP.NET?");
+            var unitOfWork = setupUnitOfWork(questionsRepository);
+            IQuestionAndAnswerService questionAndAnswerService = new QuestionAndAnswerService(unitOfWork.Object);
+            
+            //Act
+            Answer addedAnswer = questionAndAnswerService.AddAnswer(1, new Answer { Desc = "It is a framework." });
+            
+            //Assert
+            Assert.IsTrue(addedAnswer.Id > 0);
         }
     }   
 }

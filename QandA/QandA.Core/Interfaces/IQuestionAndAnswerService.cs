@@ -14,5 +14,7 @@ namespace QandA.Core.Interfaces
         Question AddQuestion(Question question);
 
         List<Question> GetAll();
+
+        Answer AddAnswer(int questionId, Answer answer);
     }
 }

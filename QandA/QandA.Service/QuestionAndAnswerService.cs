@@ -32,5 +32,16 @@ namespace QandA.Service
         {
             return _unitOfWork.QuestionsRepository.GetAll();
         }
+
+        public Answer AddAnswer(int questionId, Answer answer)
+        {
+            Question question = _unitOfWork.QuestionsRepository.SingleOrDefault(q => q.Id == questionId);
+            question.Answers.Add(answer);
+            Question addedQuestionWithAnswer = _unitOfWork.QuestionsRepository.Add(question);
+
+            _unitOfWork.Save();
+
+            return addedQuestionWithAnswer.Answers[0];
+        }
     }
 }
