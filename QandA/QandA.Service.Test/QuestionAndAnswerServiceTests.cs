@@ -98,7 +98,7 @@ namespace QandA.Service.Test
         }
 
         [TestMethod]
-        public void AddAnswerWithQuestionIdReturnssAddedAnswer()
+        public void AddAnswerWithQuestionIdReturnsAddedAnswer()
         {
             //Arrange
             var questionsRepository = setupQuestionRepository(1, "What is ASP.NET?");
