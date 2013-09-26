@@ -26,6 +26,7 @@
         }
     }
 </fieldset>
+<p>@Html.ActionLink("Add Answer", "create", "answers", new { questionId  = @Model.Id }, null) </p>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
     @Html.ActionLink("Back to List", "Index")

@@ -16,6 +16,12 @@ namespace QandA.Web.Controllers
             _questionAndAnswerService = questionAndAnswerService;
         }
 
+        public ActionResult Create(int questionId)
+        {
+            return View();
+        }
+
+        [HttpPost]
         public ActionResult Create(int questionId, Answer answer)
         {
             Answer addedAnswer = _questionAndAnswerService.AddAnswer(questionId, answer);

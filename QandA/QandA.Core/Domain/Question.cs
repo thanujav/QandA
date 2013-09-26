@@ -10,6 +10,6 @@ namespace QandA.Core.Domain
     {
         public int Id { get; set; }
         public string Desc { get; set; }
-        public List<Answer> Answers { get; set; }
+        public virtual List<Answer> Answers { get; set; }
     }
 }

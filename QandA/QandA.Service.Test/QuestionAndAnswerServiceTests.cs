@@ -109,7 +109,7 @@ namespace QandA.Service.Test
             Answer addedAnswer = questionAndAnswerService.AddAnswer(1, new Answer { Desc = "It is a framework." });
             
             //Assert
-            Assert.IsTrue(addedAnswer.Id > 0);
+            Assert.IsNotNull(addedAnswer.Id);
         }
     }   
 }
