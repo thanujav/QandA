@@ -4,6 +4,7 @@ using Moq;
 using QandA.Core.Interfaces;
 using QandA.Core.Domain;
 using System.Collections.Generic;
+using QandA.Core.Constants;
 
 namespace QandA.Service.Test
 {
@@ -110,6 +111,42 @@ namespace QandA.Service.Test
             
             //Assert
             Assert.IsNotNull(addedAnswer.Id);
+        }
+
+        [TestMethod]
+        public void GetPaged_ReturnsPageFullOfQuestions()
+        {
+            //Arrange
+            var questionsRepository = setupGetPagedQuestionRepository();
+            var unitOfWork = setupUnitOfWork(questionsRepository);
+            var questionAndAnswerService = new QuestionAndAnswerService(unitOfWork.Object);
+
+            //Act
+            List<Question> questions = questionAndAnswerService.GetPaged(General.PageSize, 1);
+
+            //Assert
+            Assert.AreEqual(10, questions.Count);
+        }
+
+        private static Mock<IGenericRepository<Question>> setupGetPagedQuestionRepository()
+        {
+            var questionsRepository = new Mock<IGenericRepository<Question>>();
+            questionsRepository.Setup(qas => qas.GetPaged(It.IsAny<int>(), It.IsAny<int>()))
+                               .Returns(new List<Question> 
+                               { 
+                                   new Question { Id = 1, Desc = "AA" },
+                                    new Question { Id = 2, Desc = "AA" },
+                                    new Question { Id = 3, Desc = "AA" },
+                                    new Question { Id = 4, Desc = "AA" },
+                                    new Question { Id = 5, Desc = "AA" },
+                                    new Question { Id = 6, Desc = "AA" },
+                                    new Question { Id = 7, Desc = "AA" },
+                                    new Question { Id = 8, Desc = "AA" },
+                                    new Question { Id = 9, Desc = "AA" },
+                                    new Question { Id = 10, Desc = "AA" }
+                               });
+
+            return questionsRepository;
         }
     }   
 }

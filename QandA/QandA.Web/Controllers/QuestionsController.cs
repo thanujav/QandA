@@ -1,4 +1,5 @@
-﻿using QandA.Core.Domain;
+﻿using QandA.Core.Constants;
+using QandA.Core.Domain;
 using QandA.Core.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -35,9 +36,9 @@ namespace QandA.Web.Controllers
             return RedirectToAction("details", new { id = addedQuestion.Id });
         }
 
-        public ActionResult Index()
+        public ActionResult Index(int page=1)
         {
-            List<Question> questions = _questionAndAnswerService.GetAll();
+            List<Question> questions = _questionAndAnswerService.GetPaged(General.PageSize, page);
             return View(questions);
         }
     }

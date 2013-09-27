@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\General.cs" />
     <Compile Include="Domain\Answer.cs" />
     <Compile Include="Domain\Question.cs" />
     <Compile Include="Interfaces\IGenericRepository.cs" />

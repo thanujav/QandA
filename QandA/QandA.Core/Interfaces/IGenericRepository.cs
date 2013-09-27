@@ -14,5 +14,7 @@ namespace QandA.Core.Interfaces
         T Add(T t);
 
         List<T> GetAll();
+
+        List<T> GetPaged(int pageSize, int pageNum);
     }
 }

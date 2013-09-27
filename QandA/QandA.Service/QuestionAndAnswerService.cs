@@ -41,5 +41,10 @@ namespace QandA.Service
 
             return answer;
         }
+
+        public List<Question> GetPaged(int pageSize, int pageNum)
+        {
+            return _unitOfWork.QuestionsRepository.GetPaged(pageSize, pageNum);
+        }
     }
 }

@@ -6,6 +6,7 @@ using Moq;
 using QandA.Core.Domain;
 using System.Web.Mvc;
 using System.Collections.Generic;
+using QandA.Core.Constants;
 
 namespace QandA.Web.Test
 {
@@ -50,19 +51,32 @@ namespace QandA.Web.Test
         }
 
         [TestMethod]
-        public void IndexReturnsAllQuestion()
+        public void IndexReturnsAPageFullOFResults()
         {
             //Arrange
             var questionAndAnswerService = new Mock<IQuestionAndAnswerService>();
-            questionAndAnswerService.Setup(qas => qas.GetAll())
-                                    .Returns(new List<Question> { });
+            questionAndAnswerService.Setup(qas => qas.GetPaged(It.IsAny<int>(), It.IsAny<int>()))
+                                    .Returns(new List<Question> 
+                                    {
+                                        new Question { Id = 1, Desc = "AA" },
+                                        new Question { Id = 2, Desc = "AA" },
+                                        new Question { Id = 3, Desc = "AA" },
+                                        new Question { Id = 4, Desc = "AA" },
+                                        new Question { Id = 5, Desc = "AA" },
+                                        new Question { Id = 6, Desc = "AA" },
+                                        new Question { Id = 7, Desc = "AA" },
+                                        new Question { Id = 8, Desc = "AA" },
+                                        new Question { Id = 9, Desc = "AA" },
+                                        new Question { Id = 10, Desc = "AA" }
+                                    });
             var questionController = new QuestionsController(questionAndAnswerService.Object);
             
             //Act
-            var result = questionController.Index() as ViewResult;
+            var result = questionController.Index(1) as ViewResult;
             
             //Assert
             Assert.IsNotNull(result.Model as List<Question>);
+            Assert.AreEqual(General.PageSize, (result.Model as List<Question>).Count);
         }
     }
 

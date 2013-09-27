@@ -16,5 +16,7 @@ namespace QandA.Core.Interfaces
         List<Question> GetAll();
 
         Answer AddAnswer(int questionId, Answer answer);
+
+        List<Question> GetPaged(int pageSize, int pageNum);
     }
 }
