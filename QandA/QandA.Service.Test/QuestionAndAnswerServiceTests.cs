@@ -5,6 +5,7 @@ using QandA.Core.Interfaces;
 using QandA.Core.Domain;
 using System.Collections.Generic;
 using QandA.Core.Constants;
+using QandA.Core.Dto;
 
 namespace QandA.Service.Test
 {
@@ -46,26 +47,6 @@ namespace QandA.Service.Test
             Assert.IsNotNull(question);
             Assert.AreEqual(2, question.Id);
             Assert.AreEqual("What is MVC?", question.Desc);
-        }
-
-        private static Mock<IUnitOfWork> setupUnitOfWork(Mock<IGenericRepository<Question>> questionsRepository)
-        {
-            var unitOfWork = new Mock<IUnitOfWork>();
-            unitOfWork.SetupGet(uow => uow.QuestionsRepository)
-                      .Returns(questionsRepository.Object);
-            return unitOfWork;
-        }
-
-        private static Mock<IGenericRepository<Question>> setupQuestionRepository(int id, string desc)
-        {
-            var questionsRepository = new Mock<IGenericRepository<Question>>();
-            questionsRepository.Setup(qr => qr.SingleOrDefault(It.IsAny<Func<Question, bool>>()))
-                               .Returns(new Question { Id = id, Desc = desc, Answers = new List<Answer> { new Answer { Id = 1, Desc = "It is a framework." } } });
-            questionsRepository.Setup(qr => qr.Add(It.IsAny<Question>()))
-                               .Returns(new Question { Id = id, Desc = desc, Answers = new List<Answer> { new Answer { Id = 2, Desc = "It is a framework." } } });
-            questionsRepository.Setup(qas => qas.GetAll())
-                               .Returns(new List<Question> { new Question { Id = id, Desc = desc } });
-            return questionsRepository;
         }
 
         [TestMethod]
@@ -122,10 +103,31 @@ namespace QandA.Service.Test
             var questionAndAnswerService = new QuestionAndAnswerService(unitOfWork.Object);
 
             //Act
-            List<Question> questions = questionAndAnswerService.GetPaged(General.PageSize, 1);
+            PagedQuestions pagedQuestions = questionAndAnswerService.GetPaged(General.PageSize, 1);
 
             //Assert
-            Assert.AreEqual(10, questions.Count);
+            Assert.AreEqual(10, pagedQuestions.Questions.Count);
+            Assert.AreEqual(12, pagedQuestions.TotalQuestions);
+        }
+
+        private static Mock<IUnitOfWork> setupUnitOfWork(Mock<IGenericRepository<Question>> questionsRepository)
+        {
+            var unitOfWork = new Mock<IUnitOfWork>();
+            unitOfWork.SetupGet(uow => uow.QuestionsRepository)
+                      .Returns(questionsRepository.Object);
+            return unitOfWork;
+        }
+
+        private static Mock<IGenericRepository<Question>> setupQuestionRepository(int id, string desc)
+        {
+            var questionsRepository = new Mock<IGenericRepository<Question>>();
+            questionsRepository.Setup(qr => qr.SingleOrDefault(It.IsAny<Func<Question, bool>>()))
+                               .Returns(new Question { Id = id, Desc = desc, Answers = new List<Answer> { new Answer { Id = 1, Desc = "It is a framework." } } });
+            questionsRepository.Setup(qr => qr.Add(It.IsAny<Question>()))
+                               .Returns(new Question { Id = id, Desc = desc, Answers = new List<Answer> { new Answer { Id = 2, Desc = "It is a framework." } } });
+            questionsRepository.Setup(qas => qas.GetAll())
+                               .Returns(new List<Question> { new Question { Id = id, Desc = desc } });
+            return questionsRepository;
         }
 
         private static Mock<IGenericRepository<Question>> setupGetPagedQuestionRepository()
@@ -145,6 +147,7 @@ namespace QandA.Service.Test
                                     new Question { Id = 9, Desc = "AA" },
                                     new Question { Id = 10, Desc = "AA" }
                                });
+            questionsRepository.Setup(qr => qr.Count()).Returns(12);
 
             return questionsRepository;
         }

@@ -1,4 +1,5 @@
 ﻿using QandA.Core.Domain;
+using QandA.Core.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,6 @@ namespace QandA.Core.Interfaces
 
         Answer AddAnswer(int questionId, Answer answer);
 
-        List<Question> GetPaged(int pageSize, int pageNum);
+        PagedQuestions GetPaged(int pageSize, int pageNum);
     }
 }

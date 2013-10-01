@@ -1,10 +1,11 @@
-﻿@model IEnumerable<QandA.Core.Domain.Question>
+﻿@using QandA.Web.Helpers;
+@model QandA.Web.Models.QuestionsIndexViewModel
 
 @{
     ViewBag.Title = "Index";
 }
 <table>
-@foreach (var item in Model) {
+@foreach (var item in Model.Questions) {
     <tr>
         <td>
             @Html.ActionLink(item.Desc, "Details", new { id=item.Id })
@@ -12,3 +13,6 @@
     </tr>
 }
 </table>
+<p>
+    @Html.PageLinks(Model.PagingInfo, x => Url.Action("Index", new {page = x}))
+</p>

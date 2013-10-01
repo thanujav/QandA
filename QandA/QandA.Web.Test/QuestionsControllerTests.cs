@@ -7,6 +7,8 @@ using QandA.Core.Domain;
 using System.Web.Mvc;
 using System.Collections.Generic;
 using QandA.Core.Constants;
+using QandA.Core.Dto;
+using QandA.Web.Models;
 
 namespace QandA.Web.Test
 {
@@ -56,27 +58,33 @@ namespace QandA.Web.Test
             //Arrange
             var questionAndAnswerService = new Mock<IQuestionAndAnswerService>();
             questionAndAnswerService.Setup(qas => qas.GetPaged(It.IsAny<int>(), It.IsAny<int>()))
-                                    .Returns(new List<Question> 
+                                    .Returns(new PagedQuestions
                                     {
-                                        new Question { Id = 1, Desc = "AA" },
-                                        new Question { Id = 2, Desc = "AA" },
-                                        new Question { Id = 3, Desc = "AA" },
-                                        new Question { Id = 4, Desc = "AA" },
-                                        new Question { Id = 5, Desc = "AA" },
-                                        new Question { Id = 6, Desc = "AA" },
-                                        new Question { Id = 7, Desc = "AA" },
-                                        new Question { Id = 8, Desc = "AA" },
-                                        new Question { Id = 9, Desc = "AA" },
-                                        new Question { Id = 10, Desc = "AA" }
-                                    });
+                                        Questions = new List<Question> 
+                                        {
+                                            new Question { Id = 1, Desc = "AA" },
+                                            new Question { Id = 2, Desc = "AA" },
+                                            new Question { Id = 3, Desc = "AA" },
+                                            new Question { Id = 4, Desc = "AA" },
+                                            new Question { Id = 5, Desc = "AA" },
+                                            new Question { Id = 6, Desc = "AA" },
+                                            new Question { Id = 7, Desc = "AA" },
+                                            new Question { Id = 8, Desc = "AA" },
+                                            new Question { Id = 9, Desc = "AA" },
+                                            new Question { Id = 10, Desc = "AA" }
+                                        },
+                                        TotalQuestions = 12
+                                    }
+                                    );
             var questionController = new QuestionsController(questionAndAnswerService.Object);
             
             //Act
             var result = questionController.Index(1) as ViewResult;
             
             //Assert
-            Assert.IsNotNull(result.Model as List<Question>);
-            Assert.AreEqual(General.PageSize, (result.Model as List<Question>).Count);
+            Assert.IsNotNull(result.Model as QuestionsIndexViewModel);
+            Assert.AreEqual(1, (result.Model as QuestionsIndexViewModel).PagingInfo.CurrentPage);
+            Assert.AreEqual(2, (result.Model as QuestionsIndexViewModel).PagingInfo.TotalPages);
         }
     }
 

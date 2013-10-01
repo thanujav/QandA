@@ -41,6 +41,9 @@ namespace QandA.Data
             return _dbset.OrderBy("Id").Skip((pageNum - 1) * pageSize).Take(pageSize).ToList();
         }
 
-        
+        public int Count()
+        {
+            return _dbset.Count();
+        }
     }
 }

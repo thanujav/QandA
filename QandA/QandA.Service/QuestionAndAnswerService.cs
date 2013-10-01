@@ -1,4 +1,5 @@
 ﻿using QandA.Core.Domain;
+using QandA.Core.Dto;
 using QandA.Core.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -42,9 +43,13 @@ namespace QandA.Service
             return answer;
         }
 
-        public List<Question> GetPaged(int pageSize, int pageNum)
+        public PagedQuestions GetPaged(int pageSize, int pageNum)
         {
-            return _unitOfWork.QuestionsRepository.GetPaged(pageSize, pageNum);
+
+            List<Question> questions = _unitOfWork.QuestionsRepository.GetPaged(pageSize, pageNum);
+            int totalQuestions = _unitOfWork.QuestionsRepository.Count();
+
+            return new PagedQuestions { Questions = questions, TotalQuestions = totalQuestions };
         }
     }
 }
