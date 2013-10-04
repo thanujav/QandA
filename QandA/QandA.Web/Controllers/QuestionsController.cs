@@ -25,6 +25,7 @@ namespace QandA.Web.Controllers
             return View(question);
         }
 
+        [Authorize]
         public ActionResult Create()
         {
             return View();

@@ -18,13 +18,13 @@ namespace QandA.Web
             //    clientId: "",
             //    clientSecret: "");
 
-            //OAuthWebSecurity.RegisterTwitterClient(
-            //    consumerKey: "",
-            //    consumerSecret: "");
+            OAuthWebSecurity.RegisterTwitterClient(
+                consumerKey: "7q6zOjDmP7NabIceLAzmJg",
+                consumerSecret: "VUZHUm9Uz7zFn6rVx1jj6zMeiyJKXcjlAXZQ6lvSCJ4");
 
-            //OAuthWebSecurity.RegisterFacebookClient(
-            //    appId: "",
-            //    appSecret: "");
+            OAuthWebSecurity.RegisterFacebookClient(
+                appId: "518395634920956",
+                appSecret: "d9073bfe0578e3266cbba2ce591ecba3");
 
             //OAuthWebSecurity.RegisterGoogleClient();
         }
