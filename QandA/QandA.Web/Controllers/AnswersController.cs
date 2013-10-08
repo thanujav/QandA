@@ -10,7 +10,7 @@ namespace QandA.Web.Controllers
 {
     public class AnswersController : Controller
     {
-        IQuestionAndAnswerService _questionAndAnswerService;
+        readonly IQuestionAndAnswerService _questionAndAnswerService;
         public AnswersController(IQuestionAndAnswerService questionAndAnswerService)
         {
             _questionAndAnswerService = questionAndAnswerService;
@@ -22,9 +22,10 @@ namespace QandA.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Create(int questionId, Answer answer)
         {
-            Answer addedAnswer = _questionAndAnswerService.AddAnswer(questionId, answer);
+            var addedAnswer = _questionAndAnswerService.AddAnswer(questionId, answer);
 
             return RedirectToAction("details", "questions", new { id = questionId });
         }

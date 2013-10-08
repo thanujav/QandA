@@ -1,3 +1,5 @@
+using QandA.Web.Security;
+
 [assembly: WebActivator.PreApplicationStartMethod(typeof(QandA.Web.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivator.ApplicationShutdownMethodAttribute(typeof(QandA.Web.App_Start.NinjectWebCommon), "Stop")]
 
@@ -55,6 +57,8 @@ namespace QandA.Web.App_Start
         {
             kernel.Load("QandA.Data.dll");
             kernel.Load("QandA.Service.dll");
+
+            kernel.Bind<IWebSecurity>().To<WebSecurity>();
         }        
     }
 }

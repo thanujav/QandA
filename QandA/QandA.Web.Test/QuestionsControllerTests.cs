@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using System.Collections.Generic;
 using QandA.Core.Dto;
 using QandA.Web.Models;
+using QandA.Web.Security;
 
 namespace QandA.Web.Test
 {
@@ -21,7 +22,9 @@ namespace QandA.Web.Test
             var questionsAndAnswerService = new Mock<IQuestionAndAnswerService>();
             questionsAndAnswerService.Setup(qaas => qaas.GetQuestion(It.IsAny<int>()))
                                      .Returns(new Question { Id = 1, Desc = "What is Asp.net?", Answers = new List<Answer> { new Answer { Id = 1, Desc = "It is a framework." } } });
-            var questionsController = new QuestionsController(questionsAndAnswerService.Object);
+            var webSecurityMock = new Mock<IWebSecurity>();
+            webSecurityMock.SetupGet(wsm => wsm.CurrentUserId).Returns(1);
+            var questionsController = new QuestionsController(questionsAndAnswerService.Object, webSecurityMock.Object);
 
             //Act
             var result = questionsController.Details(1) as ViewResult;
@@ -42,8 +45,10 @@ namespace QandA.Web.Test
             var questionAndAnswerService = new Mock<IQuestionAndAnswerService>();
             questionAndAnswerService.Setup(qas => qas.AddQuestion(It.IsAny<Question>()))
                                     .Returns(new Question { Id = 1, Desc = "What is .NET" });
-            var questionsController = new QuestionsController(questionAndAnswerService.Object);
-            
+            var webSecurityMock = new Mock<IWebSecurity>();
+            webSecurityMock.SetupGet(wsm => wsm.CurrentUserId).Returns(1);
+            var questionsController = new QuestionsController(questionAndAnswerService.Object, webSecurityMock.Object);
+
             //Act
             var result = questionsController.Create(new Question { Desc = "What is .NET" }) as RedirectToRouteResult;
             
@@ -75,7 +80,9 @@ namespace QandA.Web.Test
                                         TotalQuestions = 12
                                     }
                                     );
-            var questionController = new QuestionsController(questionAndAnswerService.Object);
+            var webSecurityMock = new Mock<IWebSecurity>();
+            webSecurityMock.SetupGet(wsm => wsm.CurrentUserId).Returns(1);
+            var questionController = new QuestionsController(questionAndAnswerService.Object, webSecurityMock.Object);
             
             //Act
             var result = questionController.Index(1) as ViewResult;

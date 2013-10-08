@@ -1,18 +1,20 @@
 ﻿using QandA.Core.Constants;
 using QandA.Core.Domain;
-using QandA.Core.Dto;
 using QandA.Core.Interfaces;
 using QandA.Web.Models;
 using System.Web.Mvc;
+using QandA.Web.Security;
 
 namespace QandA.Web.Controllers
 {
     public class QuestionsController : Controller
     {
         private readonly IQuestionAndAnswerService _questionAndAnswerService;
-        public QuestionsController(IQuestionAndAnswerService questionAndAnswerService)
+        private readonly IWebSecurity _webSecurity;
+        public QuestionsController(IQuestionAndAnswerService questionAndAnswerService, IWebSecurity webSecurity)
         {
             _questionAndAnswerService = questionAndAnswerService;
+            _webSecurity = webSecurity;
         }
 
         public ActionResult Details(int id)
@@ -28,8 +30,11 @@ namespace QandA.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Create(Question question)
         {
+            var userId = _webSecurity.CurrentUserId;
+
             var addedQuestion = _questionAndAnswerService.AddQuestion(question);
 
             return RedirectToAction("details", new { id = addedQuestion.Id });
