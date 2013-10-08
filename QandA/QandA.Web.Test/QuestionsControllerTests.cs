@@ -6,7 +6,6 @@ using Moq;
 using QandA.Core.Domain;
 using System.Web.Mvc;
 using System.Collections.Generic;
-using QandA.Core.Constants;
 using QandA.Core.Dto;
 using QandA.Web.Models;
 
@@ -53,7 +52,7 @@ namespace QandA.Web.Test
         }
 
         [TestMethod]
-        public void IndexReturnsAPageFullOFResults()
+        public void IndexReturnsAPageFullOfResults()
         {
             //Arrange
             var questionAndAnswerService = new Mock<IQuestionAndAnswerService>();

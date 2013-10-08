@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\General.cs" />
+    <Compile Include="Domain\AccountModels.cs" />
     <Compile Include="Domain\Answer.cs" />
     <Compile Include="Domain\Question.cs" />
     <Compile Include="Dto\PagedQuestions.cs" />

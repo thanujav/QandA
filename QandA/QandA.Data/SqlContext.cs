@@ -1,10 +1,5 @@
 ﻿using QandA.Core.Domain;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace QandA.Data
 {
@@ -12,5 +7,6 @@ namespace QandA.Data
     {
         public DbSet<Question> Questions { get; set; }
         public DbSet<Answer> Answers { get; set; }
+        public DbSet<UserProfile> UserProfiles { get; set; }
     }
 }

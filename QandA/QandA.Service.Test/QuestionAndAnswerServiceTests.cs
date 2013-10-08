@@ -16,8 +16,8 @@ namespace QandA.Service.Test
         public void GetQuestionWithIdReturnNonNullQandAs()
         {
             //Arrange
-            var questionsRepository = setupQuestionRepository(1, "What is ASP.NET?");
-            var unitOfWork = setupUnitOfWork(questionsRepository);
+            var questionsRepository = SetupQuestionRepository(1, "What is ASP.NET?");
+            var unitOfWork = SetupUnitOfWork(questionsRepository);
             var questionAndAnswerService = new QuestionAndAnswerService(unitOfWork.Object);
             
             //Act
@@ -30,14 +30,15 @@ namespace QandA.Service.Test
             Assert.IsTrue(question.Answers.Count > 0);
             Assert.AreEqual(1, question.Answers[0].Id);
             Assert.AreEqual("It is a framework.", question.Answers[0].Desc);
+            Assert.AreEqual(1, question.UserProfile.UserId);
         }
 
         [TestMethod]
         public void GetQuestionWithIdReturnNonNull2()
         {
             //Arrange
-            var questionsRepository = setupQuestionRepository(2, "What is MVC?");
-            var unitOfWork = setupUnitOfWork(questionsRepository);
+            var questionsRepository = SetupQuestionRepository(2, "What is MVC?");
+            var unitOfWork = SetupUnitOfWork(questionsRepository);
             var questionAndAnswerService = new QuestionAndAnswerService(unitOfWork.Object);
 
             //Act
@@ -47,29 +48,31 @@ namespace QandA.Service.Test
             Assert.IsNotNull(question);
             Assert.AreEqual(2, question.Id);
             Assert.AreEqual("What is MVC?", question.Desc);
+            Assert.AreEqual(1, question.UserProfile.UserId);
         }
 
         [TestMethod]
         public void AddQuestionReturnQuestionWithId()
         {
             //Arrange
-            var questionsRepository = setupQuestionRepository(1, "What is ASP.NET?");
-            var unitOfWork = setupUnitOfWork(questionsRepository);
+            var questionsRepository = SetupQuestionRepository(1, "What is ASP.NET?");
+            var unitOfWork = SetupUnitOfWork(questionsRepository);
             var questionAndAnswerService = new QuestionAndAnswerService(unitOfWork.Object);
             
             //Act
-            Question question = questionAndAnswerService.AddQuestion(new Question { Desc = "What is .NET" });
+            var question = questionAndAnswerService.AddQuestion(new Question { Desc = "What is .NET", UserProfile = new UserProfile { UserId = 1, UserName = "sunil" } });
             
             //Assert
             Assert.IsTrue(question.Id > 0);
+            Assert.AreEqual(1, question.UserProfile.UserId);
         }
 
         [TestMethod]
         public void GetAllReturnsAllQuestions()
         {
             //Arrange
-            var questionsRepository = setupQuestionRepository(1, "What is ASP.NET?");
-            var unitOfWork = setupUnitOfWork(questionsRepository);
+            var questionsRepository = SetupQuestionRepository(1, "What is ASP.NET?");
+            var unitOfWork = SetupUnitOfWork(questionsRepository);
             var questionAndAnswerService = new QuestionAndAnswerService(unitOfWork.Object);
             
             //Act
@@ -83,23 +86,24 @@ namespace QandA.Service.Test
         public void AddAnswerWithQuestionIdReturnsAddedAnswer()
         {
             //Arrange
-            var questionsRepository = setupQuestionRepository(1, "What is ASP.NET?");
-            var unitOfWork = setupUnitOfWork(questionsRepository);
+            var questionsRepository = SetupQuestionRepository(1, "What is ASP.NET?");
+            var unitOfWork = SetupUnitOfWork(questionsRepository);
             IQuestionAndAnswerService questionAndAnswerService = new QuestionAndAnswerService(unitOfWork.Object);
             
             //Act
-            Answer addedAnswer = questionAndAnswerService.AddAnswer(1, new Answer { Desc = "It is a framework." });
+            var addedAnswer = questionAndAnswerService.AddAnswer(1, new Answer { Desc = "It is a framework.", UserProfile = new UserProfile { UserId = 1, UserName = "sunil" } });
             
             //Assert
             Assert.IsNotNull(addedAnswer.Id);
+            Assert.AreEqual(1, addedAnswer.UserProfile.UserId);
         }
 
         [TestMethod]
         public void GetPaged_ReturnsPageFullOfQuestions()
         {
             //Arrange
-            var questionsRepository = setupGetPagedQuestionRepository();
-            var unitOfWork = setupUnitOfWork(questionsRepository);
+            var questionsRepository = SetupGetPagedQuestionRepository();
+            var unitOfWork = SetupUnitOfWork(questionsRepository);
             var questionAndAnswerService = new QuestionAndAnswerService(unitOfWork.Object);
 
             //Act
@@ -110,7 +114,7 @@ namespace QandA.Service.Test
             Assert.AreEqual(12, pagedQuestions.TotalQuestions);
         }
 
-        private static Mock<IUnitOfWork> setupUnitOfWork(Mock<IGenericRepository<Question>> questionsRepository)
+        private static Mock<IUnitOfWork> SetupUnitOfWork(Mock<IGenericRepository<Question>> questionsRepository)
         {
             var unitOfWork = new Mock<IUnitOfWork>();
             unitOfWork.SetupGet(uow => uow.QuestionsRepository)
@@ -118,19 +122,19 @@ namespace QandA.Service.Test
             return unitOfWork;
         }
 
-        private static Mock<IGenericRepository<Question>> setupQuestionRepository(int id, string desc)
+        private static Mock<IGenericRepository<Question>> SetupQuestionRepository(int id, string desc)
         {
             var questionsRepository = new Mock<IGenericRepository<Question>>();
             questionsRepository.Setup(qr => qr.SingleOrDefault(It.IsAny<Func<Question, bool>>()))
-                               .Returns(new Question { Id = id, Desc = desc, Answers = new List<Answer> { new Answer { Id = 1, Desc = "It is a framework." } } });
+                               .Returns(new Question { Id = id, Desc = desc, Answers = new List<Answer> { new Answer { Id = 1, Desc = "It is a framework.", UserProfile = new UserProfile { UserId = 1, UserName = "sunil" } } }, UserProfile = new UserProfile { UserId = 1, UserName = "sunil" } });
             questionsRepository.Setup(qr => qr.Add(It.IsAny<Question>()))
-                               .Returns(new Question { Id = id, Desc = desc, Answers = new List<Answer> { new Answer { Id = 2, Desc = "It is a framework." } } });
+                               .Returns(new Question { Id = id, Desc = desc, Answers = new List<Answer> { new Answer { Id = 2, Desc = "It is a framework.", UserProfile = new UserProfile { UserId = 1, UserName = "sunil" } } }, UserProfile = new UserProfile { UserId = 1, UserName = "sunil" } });
             questionsRepository.Setup(qas => qas.GetAll())
-                               .Returns(new List<Question> { new Question { Id = id, Desc = desc } });
+                               .Returns(new List<Question> { new Question { Id = id, Desc = desc, UserProfile = new UserProfile { UserId = 1, UserName = "sunil" } } });
             return questionsRepository;
         }
 
-        private static Mock<IGenericRepository<Question>> setupGetPagedQuestionRepository()
+        private static Mock<IGenericRepository<Question>> SetupGetPagedQuestionRepository()
         {
             var questionsRepository = new Mock<IGenericRepository<Question>>();
             questionsRepository.Setup(qas => qas.GetPaged(It.IsAny<int>(), It.IsAny<int>()))

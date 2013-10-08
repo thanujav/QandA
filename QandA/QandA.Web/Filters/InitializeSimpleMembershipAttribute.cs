@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Threading;
 using System.Web.Mvc;
+using QandA.Data;
 using WebMatrix.WebData;
 using QandA.Web.Models;
 
@@ -25,11 +26,11 @@ namespace QandA.Web.Filters
         {
             public SimpleMembershipInitializer()
             {
-                Database.SetInitializer<UsersContext>(null);
+                Database.SetInitializer<SqlContext>(null);
 
                 try
                 {
-                    using (var context = new UsersContext())
+                    using (var context = new SqlContext())
                     {
                         if (!context.Database.Exists())
                         {

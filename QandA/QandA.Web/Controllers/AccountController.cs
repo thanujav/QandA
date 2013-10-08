@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
+using QandA.Core.Domain;
+using QandA.Data;
 using WebMatrix.WebData;
 using QandA.Web.Filters;
-using QandA.Web.Models;
 
 namespace QandA.Web.Controllers
 {
@@ -263,7 +263,7 @@ namespace QandA.Web.Controllers
             if (ModelState.IsValid)
             {
                 // Insert a new user into the database
-                using (UsersContext db = new UsersContext())
+                using (SqlContext db = new SqlContext())
                 {
                     UserProfile user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
                     // Check if user already exists

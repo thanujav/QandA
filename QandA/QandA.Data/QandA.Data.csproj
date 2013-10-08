@@ -57,6 +57,10 @@
     <Compile Include="Migrations\201309040324345_addedanswers.Designer.cs">
       <DependentUpon>201309040324345_addedanswers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201310080337209_linkUserProfile.cs" />
+    <Compile Include="Migrations\201310080337209_linkUserProfile.Designer.cs">
+      <DependentUpon>201310080337209_linkUserProfile.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="QueryableExtension.cs" />
     <Compile Include="SqlContext.cs" />
@@ -79,6 +83,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201309040324345_addedanswers.resx">
       <DependentUpon>201309040324345_addedanswers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201310080337209_linkUserProfile.resx">
+      <DependentUpon>201310080337209_linkUserProfile.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

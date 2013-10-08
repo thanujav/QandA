@@ -1,17 +1,13 @@
 ﻿using QandA.Core.Domain;
 using QandA.Core.Dto;
 using QandA.Core.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace QandA.Service
 {
     public class QuestionAndAnswerService : IQuestionAndAnswerService
     {
-        private IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
         public QuestionAndAnswerService(IUnitOfWork unitOfWork)
         {
@@ -36,7 +32,7 @@ namespace QandA.Service
 
         public Answer AddAnswer(int questionId, Answer answer)
         {
-            Question question = _unitOfWork.QuestionsRepository.SingleOrDefault(q => q.Id == questionId);
+            var question = _unitOfWork.QuestionsRepository.SingleOrDefault(q => q.Id == questionId);
             question.Answers.Add(answer);
             _unitOfWork.Save();
 
